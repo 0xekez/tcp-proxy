@@ -9,7 +9,7 @@ A simple Rust TCP proxy.
 
 ## Benchmarking
 
-Using localhost:
+### Using localhost:
 
 1. Start the proxy in one terminal window
    ```bash
@@ -23,6 +23,10 @@ Using localhost:
    ```
    dd if=/dev/zero bs=1024 count=900000 | nc -v 127.0.0.1 1212
    ```
+### Using network namespaces:
+
+If you have a debian linux machine you can use `ns_test.sh` to run a
+benchmark using three network namespaces.
 
 ## Local Results
 
@@ -36,7 +40,7 @@ Connection to 127.0.0.1 port 1212 [tcp/lupa] succeeded!
 921600000 bytes transferred in 4.369209 secs (210930626 bytes/sec)
 ```
 
-Connecting directly to the eyeball:
+Connecting directly to the server:
 
 ```
 ~ dd if=/dev/zero bs=1024 count=900000 | nc -v 127.0.0.1 1313
@@ -54,3 +58,26 @@ Results
 ```
 
 The tcp proxy is 82% the speed of a regular connection.
+
+## Network Namespace Results
+
+Using the proxy:
+
+```
+921600000 bytes (922 MB, 879 MiB) copied, 25.4762 s, 36.2 MB/s
+```
+
+Connecting directly to the server:
+
+```
+921600000 bytes (922 MB, 879 MiB) copied, 5.17278 s, 178 MB/s
+```
+
+Results:
+
+```elisp
+(* 100 (/ 36.2 178))
+=> 20.337078651685395
+```
+
+the tcp proxy is 20% the speed of a regular connection.

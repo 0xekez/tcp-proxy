@@ -16,6 +16,9 @@ async fn proxy(client: &str, server: &str) -> io::Result<()> {
         let e2o = tokio::spawn(async move { io::copy(&mut eread, &mut owrite).await });
         let o2e = tokio::spawn(async move { io::copy(&mut oread, &mut ewrite).await });
 
+        // let e2o = io::copy(&mut eread, &mut owrite);
+        // let o2e = io::copy(&mut oread, &mut ewrite);
+
         select! {
                 _ = e2o => println!("c2s done"),
                 _ = o2e => println!("s2c done"),
@@ -35,7 +38,7 @@ async fn main() -> io::Result<()> {
                 .short("c")
                 .long("client")
                 .value_name("ADDRESS")
-                .help("The address of the eyeball that we will be proxying traffic for")
+                .help("The address of the client that we will be proxying traffic for")
                 .takes_value(true)
                 .required(true),
         )
@@ -44,7 +47,7 @@ async fn main() -> io::Result<()> {
                 .short("s")
                 .long("server")
                 .value_name("ADDRESS")
-                .help("The address of the origin that we will be proxying traffic for")
+                .help("The address of the server that we will be proxying traffic for")
                 .takes_value(true)
                 .required(true),
         )
