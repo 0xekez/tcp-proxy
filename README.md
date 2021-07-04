@@ -4,8 +4,8 @@ A simple Rust TCP proxy.
 
 ## Terminoligy
 
-`origin` - the listener we'd like to proxy tcp connections to.
-`eyeball` - the initiator of connections to the origin.
+`server` - the listener we'd like to proxy tcp connections to.
+`client` - the initiator of connections to the server.
 
 ## Benchmarking
 
@@ -13,7 +13,7 @@ Using localhost:
 
 1. Start the proxy in one terminal window
    ```bash
-   cargo run -- -e 0.0.0.0:1212 -o 127.0.0.1:1313
+   cargo run -- -c 0.0.0.0:1212 -s 127.0.0.1:1313
    ```
 2. Listen on the origin port in another window
    ```
