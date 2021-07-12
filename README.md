@@ -1,6 +1,6 @@
 # Proxy
 
-A simple Rust TCP proxy.
+A simple Rust TCP proxy. Intended to be educational - [don't use this](https://github.com/tokio-rs/tokio/discussions/3173) in production.
 
 ## Terminoligy
 
